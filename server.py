@@ -3,6 +3,9 @@ import flask
 
 from pokemon import Pokemon
 
+app = Flask(__name__)
+app.config.from_object(__name__)
+
 @app.route("/get_pokemon", methods=["POST"])
 def get_pokemon():
     return jsonify({})

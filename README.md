@@ -1,0 +1,1 @@
+Go to this for testing/deploying for now: https://hacktx20.herokuapp.com/

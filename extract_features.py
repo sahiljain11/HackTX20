@@ -124,7 +124,29 @@ def get_feature_mat (video_name, start, end):
             i += 1
     return mat
 
+def get_features_from_dir (dirname):
+    mat = np.zeros(shape=(598,))
+    for entry in os.scandir(dirname):
+        if entry.path.endswith(".jpg") or entry.path.endswith(".png") and entry.is_file():
+            file_name = entry.path
+            faces, response = call_google_vision (file_name)
+            landmarks, angles = extract_landmarks (faces, response)
+            if (len(landmarks) == 0 or len(angles) == 0):
+                return np.array([])
+            facial_features = calc_dist (landmarks, angles)
+            mat = np.vstack ((mat, facial_features))
+    mat = np.delete(mat, (0), axis=0)
+    scaler = MinMaxScaler()
+    mat  = scaler.fit_transform(mat)
+    return mat
 
+'''
+mat = get_features_from_dir("/home/conradli/Deception/test")
+print(mat)
+print(mat.shape)
+'''
+
+'''
 true_dir = "/home/conradli/RealLifeDeceptionDetection.2016/Real-life_Deception_Detection_2016/Clips/Truthful/"
 lie_dir = "/home/conradli/RealLifeDeceptionDetection.2016/Real-life_Deception_Detection_2016/Clips/Deceptive/"
 need_crop = [1, 2, 3, 6, 7, 8, 9, 11, 17, 21, 25, 26, 41, 42, 45, 48, 50, 51, 55, 56]
@@ -151,7 +173,7 @@ for i in range (1, 61):
 #mat  = scaler.fit_transform(mat)
 #print (mat)
 #np.save ("/home/conradli/HackTX20/training_data/lie/lie_001.npy", mat)
-
+'''
 
 # Main 
 '''file_name = '/home/conradli/trial_lie_001_0.jpg'

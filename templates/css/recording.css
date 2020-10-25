@@ -1,9 +1,9 @@
 #header-wrapper
 	{
 		position: relative;
-		padding: 5em 0em 7em 0em;
-		background: #111111 url(giphy.gif) no-repeat center;
-		background-size: cover;
+		padding: 0em 0em 0em 0em;
+		background:rgb(21, 123, 148) no-repeat center;
+		background-size: 100px;
 	}
 
 

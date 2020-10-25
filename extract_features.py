@@ -102,8 +102,8 @@ def calc_dist (landmarks, angles):
     return facial_features
  
 # Get a feature matrix for the example video
-def get_feature_mat (video_name, start, end, lie):
-    mat = np.zeros(shape=(599,))
+def get_feature_mat (video_name, start, end):
+    mat = np.zeros(shape=(598,))
     if end == 0:
         stop = False
         i = 0
@@ -116,17 +116,27 @@ def get_feature_mat (video_name, start, end, lie):
             file_name = os.path.abspath(path_to_file)
             faces, response = call_google_vision (file_name)
             landmarks, angles = extract_landmarks (faces, response)
-            facial_features = np.append(calc_dist (landmarks, angles), [lie])
+            facial_features = calc_dist (landmarks, angles)
             mat = np.vstack ((mat, facial_features))
             i += 1
     return mat
 
+'''
 dir = "/home/conradli/HackTX20/RealLifeDeceptionDetection.2016/Real-life_Deception_Detection_2016/Clips/Truthful/"
 mat = get_feature_mat (dir + "trial_truth_002", 0, 0, 0)
 mat = np.delete(mat, (0), axis=0)
 print(mat)
 print(mat.shape)
-np.save ("/home/conradli/HackTX20truth_002",mat)
+np.save ("/home/conradli/HackTX20/truth_002",mat)
+'''
+
+
+#mat = np.load ("/home/conradli/HackTX20/training_data/truth/truth_002.npy")
+#print(mat.shape)
+#mat = np.delete(mat, mat.shape[1]-1, axis=1)
+#print (mat)
+#np.save ("/home/conradli/HackTX20/training_data/truth/truth_002.npy", mat)
+
 
 # Main 
 '''file_name = '/home/conradli/trial_lie_001_0.jpg'

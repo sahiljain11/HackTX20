@@ -1,17 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
+<link rel="stylesheet" type="text/css" href=".\css\recording.css" media="screen"/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Are You Lying?</title>
+    <div class="w3-display-middle">
+        <h1 class="w3-jumbo w3-animate-top w3-display-middle">TITLE COMING SOON </h1>
+        <hr class="w3-border-grey" style="margin:auto;width:40%"> </h1>
+        <p class="w3-large w3-center">BY insert name?</p> 
+    </div>    
 </head>
 <body>
-    
-    <h1>Hello world</h1>
-    <script>
-    //HTML = content
-    //Javascript = actions
-        console.log('Hello World')
-    </script>
+    <br>
+    <button id="btn-start-recording">Start Recording</button>
+    <button id="btn-stop-recording" disabled style="display: none;">Stop Recording</button>
+
+    <hr>
+    <video controls autoplay playsinline></video>
+
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="https://www.webrtc-experiment.com/hark.js"></script>
+    <script src = '.\js\recording.js'></script>
+
+    <footer style="margin-top: 20px;"><small id="send-message"></small></footer>
+    <script src="https://www.webrtc-experiment.com/common.js"></script>  
 </body>
+
 </html>
+

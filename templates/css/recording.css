@@ -1,0 +1,36 @@
+#header-wrapper
+	{
+		position: relative;
+		padding: 5em 0em 7em 0em;
+		background: #111111 url(giphy.gif) no-repeat center;
+		background-size: cover;
+	}
+
+
+
+body{    
+    font-family: Calibri;
+    
+}
+p{
+    padding:10px 5px;
+}
+h1 {text-align: center;
+    font-size: 50px;
+}
+h2 {
+    font-size: 40px;
+}
+h3{
+    font-size: 30px;
+}
+h4{
+    font-size: 20px;
+}
+p {text-align: center;
+font-size: 30px;}
+div {text-align: center;}
+br {text-align: center;}
+video {
+    align-content: center;
+}

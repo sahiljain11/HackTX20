@@ -72,7 +72,7 @@ def extract_landmarks (faces, response):
             #print ("Sad: ", face.sorrow_likelihood)
             #print ("Anger: ", face.anger_likelihood)
     else:
-        print ("ERROR: More than one face or no faces detected for file: ", file_name)
+        print ("ERROR: More than one face or no faces detected for file: ")
         print ("Length: ", len(faces))
 
     if response.error.message:
@@ -111,31 +111,46 @@ def get_feature_mat (video_name, start, end):
             path_to_file = video_name + "_" + str(i) + ".jpg"
             # break when cannot fine another frame
             if (not os.path.exists(path_to_file)):
-                print(path_to_file)
+                print("Could not find it: ", path_to_file)
                 break
+            print ("File ", i)
             file_name = os.path.abspath(path_to_file)
             faces, response = call_google_vision (file_name)
             landmarks, angles = extract_landmarks (faces, response)
+            if (len(landmarks) == 0 or len(angles) == 0):
+                return np.array([])
             facial_features = calc_dist (landmarks, angles)
             mat = np.vstack ((mat, facial_features))
             i += 1
     return mat
 
-'''
-dir = "/home/conradli/HackTX20/RealLifeDeceptionDetection.2016/Real-life_Deception_Detection_2016/Clips/Truthful/"
-mat = get_feature_mat (dir + "trial_truth_002", 0, 0, 0)
-mat = np.delete(mat, (0), axis=0)
-print(mat)
-print(mat.shape)
-np.save ("/home/conradli/HackTX20/truth_002",mat)
-'''
 
+true_dir = "/home/conradli/RealLifeDeceptionDetection.2016/Real-life_Deception_Detection_2016/Clips/Truthful/"
+lie_dir = "/home/conradli/RealLifeDeceptionDetection.2016/Real-life_Deception_Detection_2016/Clips/Deceptive/"
+need_crop = [1, 2, 3, 6, 7, 8, 9, 11, 17, 21, 25, 26, 41, 42, 45, 48, 50, 51, 55, 56]
+need_crop_lie = [5, 7, 10, 17, 20, 21, 22, 23, 24, 29, 31, 37, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61]
+keep_lie = [32, 33, 34, 35, 36, 2, 3, 4, 8, 9, 14, 19, 11, 25, 28]
+for i in range (1, 61):
+    if i in keep_lie:
+        number = "{0:0=3d}".format(i)
+        mat = get_feature_mat (lie_dir + "trial_lie_" + number, 0, 0)
+        if (mat.size == 0):
+            continue
+        mat = np.delete(mat, (0), axis=0)
+        scaler = MinMaxScaler()
+        mat  = scaler.fit_transform(mat)
+        #print(mat)
+        print(i, " ", mat.shape)
+        np.save ("/home/conradli/HackTX20/training_data/lie/lie_" + number, mat)
 
-#mat = np.load ("/home/conradli/HackTX20/training_data/truth/truth_002.npy")
+#print("{0:0=3d}".format(3))
+
+#mat = np.load ("/home/conradli/HackTX20/training_data/lie/lie_001.npy")
 #print(mat.shape)
-#mat = np.delete(mat, mat.shape[1]-1, axis=1)
+#scaler = MinMaxScaler()
+#mat  = scaler.fit_transform(mat)
 #print (mat)
-#np.save ("/home/conradli/HackTX20/training_data/truth/truth_002.npy", mat)
+#np.save ("/home/conradli/HackTX20/training_data/lie/lie_001.npy", mat)
 
 
 # Main 

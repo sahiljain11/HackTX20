@@ -31,7 +31,7 @@ def dir_to_vid(directory_path):
             vid_to_image(directory_path + "/" + f)
         count += 1
 
-video_names = os.path.dirname(os.path.abspath(__file__)) + "/Real-life_Deception_Detection_2016/Clips"
-
-#dir_to_vid(video_names + "/Deceptive")
-dir_to_vid(video_names + "/Truthful")
+video_names = os.path.abspath("/home/conradli/RealLifeDeceptionDetection.2016/Real-life_Deception_Detection_2016/Clips")
+print(video_names)
+dir_to_vid(video_names + "/Deceptive")
+#dir_to_vid(video_names + "/Truthful")
